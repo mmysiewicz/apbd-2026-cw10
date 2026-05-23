@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using apbd_2026_cw10.Data;
 
@@ -11,9 +12,11 @@ using apbd_2026_cw10.Data;
 namespace apbd_2026_cw10.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260522233440_SeePCs")]
+    partial class SeePCs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,32 +52,6 @@ namespace apbd_2026_cw10.Migrations
                     b.HasIndex("ComponentTypesId");
 
                     b.ToTable("Components", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Code = "X01",
-                            ComponentManufacturersId = 2,
-                            ComponentTypesId = 2,
-                            Description = "Good graphics card",
-                            Name = "RTX 4060"
-                        },
-                        new
-                        {
-                            Code = "A01",
-                            ComponentManufacturersId = 3,
-                            ComponentTypesId = 1,
-                            Description = "Nice RAM",
-                            Name = "NICERAM 16GB"
-                        },
-                        new
-                        {
-                            Code = "Y01",
-                            ComponentManufacturersId = 1,
-                            ComponentTypesId = 3,
-                            Description = "Good processor",
-                            Name = "Intel i7 12th"
-                        });
                 });
 
             modelBuilder.Entity("apbd_2026_cw10.Entities.ComponentManufacturer", b =>
@@ -101,29 +78,6 @@ namespace apbd_2026_cw10.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ComponentManufacturers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Abbreviation = "SVD",
-                            FoundationDate = new DateTime(2026, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "SVD Manufacturer"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Abbreviation = "XYZ",
-                            FoundationDate = new DateTime(2026, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "XYZ Manufacturer"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Abbreviation = "ABC",
-                            FoundationDate = new DateTime(2026, 5, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            FullName = "ABC Manufacturer"
-                        });
                 });
 
             modelBuilder.Entity("apbd_2026_cw10.Entities.ComponentType", b =>
@@ -147,26 +101,6 @@ namespace apbd_2026_cw10.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ComponentTypes", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Abbreviation = "",
-                            Name = "RAM"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Abbreviation = "",
-                            Name = "Graphics card"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Abbreviation = "",
-                            Name = "Processor"
-                        });
                 });
 
             modelBuilder.Entity("apbd_2026_cw10.Entities.PC", b =>
@@ -244,26 +178,6 @@ namespace apbd_2026_cw10.Migrations
                     b.HasIndex("ComponentCode");
 
                     b.ToTable("PCComponents", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            PCId = 1,
-                            ComponentCode = "Y01",
-                            Amount = 1000
-                        },
-                        new
-                        {
-                            PCId = 2,
-                            ComponentCode = "A01",
-                            Amount = 500
-                        },
-                        new
-                        {
-                            PCId = 3,
-                            ComponentCode = "X01",
-                            Amount = 3000
-                        });
                 });
 
             modelBuilder.Entity("apbd_2026_cw10.Entities.Component", b =>

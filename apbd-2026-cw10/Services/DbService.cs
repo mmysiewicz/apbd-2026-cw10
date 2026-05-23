@@ -1,5 +1,7 @@
-﻿using apbd_2026_cw10.Data;
+﻿using System.Globalization;
+using apbd_2026_cw10.Data;
 using apbd_2026_cw10.DTOs;
+using apbd_2026_cw10.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace apbd_2026_cw10.Services;
@@ -68,13 +70,64 @@ public class DbService : IDbService
         
         return result;
     }
-    
-    
-    
-    
-    
-    
-    
-    
+
+    public async Task<PCResponseDto> CreatePCAsync(CreatePCDto createPcDto)
+    {
+        var PC = new PC
+        {
+            Name = createPcDto.Name,
+            Weight = createPcDto.Weight,
+            Warranty = createPcDto.Warranty,
+            CreatedAt = createPcDto.CreatedAt,
+            Stock = createPcDto.Stock
+        };
+        
+        _dbContext.PCs.Add(PC);
+        await _dbContext.SaveChangesAsync();
+
+        var result = new PCResponseDto
+        {
+            Id = PC.Id,
+            Name = PC.Name,
+            Weight = PC.Weight,
+            Warranty = PC.Warranty,
+            CreatedAt = PC.CreatedAt,
+            Stock = PC.Stock
+        };
+
+        return result;
+    }
+
+
+    public async Task UpdatePCAsync(int id, UpdatePCDto updatePcDto)
+    {
+        var existsPC =  await _dbContext.PCs.FirstOrDefaultAsync(e => e.Id == id);
+
+        if (existsPC == null)
+        {
+            throw new Exception();
+            
+        }
+        existsPC.Name = updatePcDto.Name;
+        existsPC.Weight = updatePcDto.Weight;
+        existsPC.Warranty = updatePcDto.Warranty;
+        existsPC.CreatedAt = updatePcDto.CreatedAt;
+        existsPC.Stock = updatePcDto.Stock;
+        
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task DeletePCAsync(int id)
+    {
+        var PC = await _dbContext.PCs.FirstOrDefaultAsync(e => e.Id == id);
+
+        if (PC == null)
+        {
+            throw new Exception();
+        }
+        
+        _dbContext.PCs.Remove(PC);
+        await _dbContext.SaveChangesAsync();
+    }
     
 }

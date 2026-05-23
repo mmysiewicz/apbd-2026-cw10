@@ -38,6 +38,45 @@ public class PCsController : ControllerBase
             return NotFound(e.Message);
         }
     }
-    
+
+    [HttpPost]
+    public async Task<ActionResult<PCResponseDto>> CreatePCAsync([FromBody] CreatePCDto createPcDto)
+    {
+        if (createPcDto == null)
+        {
+            return BadRequest();
+        }
+        
+        await _dbService.CreatePCAsync(createPcDto);
+        return Created();
+    }
+
+    [Route("{id}")]
+    [HttpPut]
+    public async Task<IActionResult> UpdatePCAsync(int id, [FromBody] UpdatePCDto updatePcDto)
+    {
+        try
+        {
+            await _dbService.UpdatePCAsync(id, updatePcDto);
+            return NoContent();
+        } catch (Exception e)
+        {
+            return NotFound(e.Message);
+        }
+    }
+
+    [Route("{id}")]
+    [HttpDelete]
+    public async Task<IActionResult> DeletePCAsync(int id)
+    {
+        try
+        {
+            await _dbService.DeletePCAsync(id);
+            return NoContent();
+        } catch (Exception e)
+        {
+            return NotFound(e.Message);
+        }
+    }
     
 }
